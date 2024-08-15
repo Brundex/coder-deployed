@@ -1,0 +1,103 @@
+paths:
+  /admin/users:
+    get:
+      summary: Obtener todos los usuarios para administración
+      responses:
+        '200':
+          description: Lista de usuarios
+          content:
+            text/html:
+              schema:
+                type: string
+        '500':
+          description: Error interno del servidor
+
+  /admin/products:
+    get:
+      summary: Obtener todos los productos para administración
+      responses:
+        '200':
+          description: Lista de productos
+          content:
+            text/html:
+              schema:
+                type: string
+        '500':
+          description: Error interno del servidor
+
+  /admin/products/add:
+    post:
+      summary: Agregar un nuevo producto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                stock:
+                  type: number
+                category:
+                  type: string
+                code:
+                  type: string
+                price:
+                  type: number
+      responses:
+        '200':
+          description: Producto agregado exitosamente
+        '400':
+          description: Código de producto duplicado
+        '500':
+          description: Error interno del servidor
+
+  /admin/products/updateStock:
+    post:
+      summary: Actualizar el stock de un producto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                stock:
+                  type: number
+      responses:
+        '200':
+          description: Stock actualizado exitosamente
+        '500':
+          description: Error interno del servidor
+
+  /admin/users/delete/{id}:
+    delete:
+      summary: Eliminar un usuario
+      parameters:
+        - in: path
+          name: id
+          schema:
+            type: string
+          required: true
+          description: ID del usuario a eliminar
+      responses:
+        '200':
+          description: Usuario eliminado exitosamente
+        '400':
+          description: ID de usuario no válido
+        '404':
+          description: Usuario no encontrado
+        '500':
+          description: Error interno del servidor
+
+  /admin/autodelete:
+    post:
+      summary: Eliminar usuarios inactivos por más de 2 días
+      responses:
+        '200':
+          description: Usuarios inactivos eliminados exitosamente
+        '500':
+          description: Error interno del servidor

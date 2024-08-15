@@ -1,0 +1,93 @@
+paths:
+  /cart:
+    get:
+      summary: Obtener el carrito del usuario
+      responses:
+        '200':
+          description: Carrito del usuario
+          content:
+            text/html:
+              schema:
+                type: string
+        '500':
+          description: Error interno del servidor
+
+  /cart/add:
+    post:
+      summary: Agregar producto al carrito
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                productId:
+                  type: string
+                quantity:
+                  type: number
+      responses:
+        '200':
+          description: Producto agregado al carrito
+        '400':
+          description: Stock insuficiente o ID de producto inválido
+        '404':
+          description: Producto no encontrado
+        '500':
+          description: Error interno del servidor
+
+  /cart/update/{cid}/{pid}:
+    post:
+      summary: Actualizar cantidad de producto en el carrito
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: ID del carrito
+        - in: path
+          name: pid
+          schema:
+            type: string
+          required: true
+          description: ID del producto
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                action:
+                  type: string
+                  enum: [increment, decrement]
+      responses:
+        '200':
+          description: Carrito actualizado exitosamente
+        '400':
+          description: Stock insuficiente o producto no encontrado en el carrito
+        '404':
+          description: Carrito o producto no encontrado
+        '500':
+          description: Error interno del servidor
+
+  /cart/checkout/{cid}:
+    post:
+      summary: Finalizar compra del carrito
+      parameters:
+        - in: path
+          name: cid
+          schema:
+            type: string
+          required: true
+          description: ID del carrito
+      responses:
+        '200':
+          description: Compra completada y correo enviado
+          content:
+            text/html:
+              schema:
+                type: string
+        '400':
+          description: Carrito vacío o no encontrado
+        '500':
+          description: Error interno del servidor

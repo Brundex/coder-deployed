@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Cart</title>
+</head>
+<body>
+    <h1>Your Cart</h1>
+    <ul>
+        {{#each cart.products}}
+            <li>
+                {{this.id_prod.title}} - {{this.quantity}}
+                <form action="/cart/update/{{../cart._id}}/{{this.id_prod._id}}" method="post" style="display: inline;">
+                    <input type="hidden" name="action" value="decrement">
+                    <button type="submit">-</button>
+                </form>
+                <form action="/cart/update/{{../cart._id}}/{{this.id_prod._id}}" method="post" style="display: inline;">
+                    <input type="hidden" name="action" value="increment">
+                    <button type="submit">+</button>
+                </form>
+            </li>
+        {{/each}}
+    </ul>
+    <p>Total: ${{cart.total}}</p>
+    <form action="/cart/checkout/{{cart._id}}" method="post">
+        <button type="submit">Finalizar Compra</button>
+    </form>
+    <a href="/products">Seguir Comprando</a>
+    <form action="/logout" method="post">
+        <button type="submit">Cerrar sesión</button>
+    </form>
+    
+</body>
+</html>
