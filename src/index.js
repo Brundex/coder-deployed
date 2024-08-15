@@ -8,7 +8,6 @@ import indexRouter from './routes/indexRouter.js'
 import { logger, addLogger } from './utils/logger.js'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUiExpress from 'swagger-ui-express'
-import dotenv from 'dotenv';
 
 //Configuraciones o declaraciones
 const app = express()
@@ -18,7 +17,7 @@ dotenv.config();
 app.use(addLogger);
 
 //Connection DB
-mongoose.connect(process.env.MONGODB_URI).then(() => logger.info("DB is connected")).catch(e => logger.error("Error connecting to DB:", e));
+mongoose.connect(process.env.MONGODB_URI, {useNewUrlParser: true,  useUnifiedTopology: true,  serverSelectionTimeoutMS: 30000}).then(() => logger.info("DB is connected")).catch(e => logger.error("Error connecting to DB:", e));
 
 //API Docs
 const swaggerOptions = {
