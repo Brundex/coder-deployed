@@ -1,8 +1,5 @@
 import jwt from 'jsonwebtoken'
-import dotenv from 'dotenv';
 import { logger } from './logger.js';
-
-dotenv.config();
 
 export const PRIVATE_KEY = process.env.PRIVATE_KEY
 
