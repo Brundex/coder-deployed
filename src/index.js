@@ -8,12 +8,11 @@ import indexRouter from './routes/indexRouter.js'
 import { logger, addLogger } from './utils/logger.js'
 import swaggerJSDoc from 'swagger-jsdoc'
 import swaggerUiExpress from 'swagger-ui-express'
-import dotenv from 'dotenv';
+
 //Configuraciones o declaraciones
 const app = express()
 const PORT = 8000
 
-dotenv.config();
 app.use(addLogger);
 
 //Connection DB
